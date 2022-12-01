@@ -1,0 +1,24 @@
+'''1) Напишите Бота, удаляющего из текста все слова, содержащие "абв". (Ввод от пользователя)
+2) Создайте Бота для игры с конфетами человек против бота. (Дополнительно)'''
+
+from telegram import Bot
+from telegram.ext import Updater, CommandHandler, MessageHandler, Filters
+
+bot = Bot(token = '5835983914:AAE_8JM9RHotDUo-vWmwXGoQzpQb5lUBVOM')
+updater = Updater(token = '5835983914:AAE_8JM9RHotDUo-vWmwXGoQzpQb5lUBVOM')
+dispahather = updater.dispatcher
+
+def start(update, context):
+    text = update.message.text.split()
+    list=[]
+    for elements in text:
+        if 'абв' not in elements:
+            list.append(elements)
+    context.bot.send_message(update.effective_chat.id, ' '.join(list))
+
+  
+start_handler = MessageHandler(Filters.text, start)
+dispahather.add_handler(start_handler)
+
+updater.start_polling()
+updater.idle()
